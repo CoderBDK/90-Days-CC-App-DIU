@@ -27,21 +27,4 @@ fun main(){
     println("Humans have only one face: $face")
 
 
-
-
-    var name = "Abdullah"
-    var roll = "89"
-    var address = "Dhaka"
-
-    println(time)
-    println(face)
-
-    //string template
-    println("Time :$time")
-    println("Name : $name")
-    println("Roll : $roll")
-    println("Address : $address")
-
-
-
 }
