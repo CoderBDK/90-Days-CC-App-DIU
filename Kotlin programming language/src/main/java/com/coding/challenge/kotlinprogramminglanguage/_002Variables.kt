@@ -9,6 +9,9 @@ package com.coding.challenge.kotlinprogramminglanguage
 fun main(){
     //mutable variable
     var time = 0 // when start the time is 0s
+
+    println(time)
+
     println("---Mutable variable---")
     println("1-Current time is : $time")
 
@@ -26,5 +29,15 @@ fun main(){
     println("---Read only variable---")
     println("Humans have only one face: $face")
 
+    //string template
+
+    println("Current time is : ${time + 1000}s")
+    time = 99
+    println("Current time is : ${time + 100}s")
+
+    val name = "Mary"
+    val age = 20
+
+    println("$name is $age years old.")
 
 }
