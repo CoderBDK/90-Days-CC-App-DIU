@@ -1,7 +1,7 @@
 package com.coding.challenge.kotlinprogramminglanguage.basics
 
 fun main(){
-    println("Two parameter " + sum(5,7))
+    println("Two int parameter " + sum(5,7))
     println("A Function body can be an Expression : ${sumInferred(5,7)}")
     sumUnit(5,7)
     sumOmitted(5,7)
