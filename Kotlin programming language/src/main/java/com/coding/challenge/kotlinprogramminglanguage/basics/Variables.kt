@@ -44,5 +44,5 @@ fun incrementX(){
 }
 // the decrementX function is will decrement the value of x by x = x - 1
 fun decrementX(){
-    x -= 1 // The value of x is incremented by x = x - 1
+    x -= 1 // The value of x is decremented by x = x - 1
 }
