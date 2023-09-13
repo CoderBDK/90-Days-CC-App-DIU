@@ -42,7 +42,7 @@ fun incrementX(){
     // invalid
     // x + = 2
 }
-// the incrementX function is will increment the value of x by x = x - 1
+// the decrementX function is will decrement the value of x by x = x - 1
 fun decrementX(){
     x -= 1 // The value of x is incremented by x = x - 1
 }
