@@ -18,4 +18,6 @@ fun main(){
     val b = 2
     var c = a + b
     println("$a + $b = $c")
+
+    val pi = 3.14
 }
