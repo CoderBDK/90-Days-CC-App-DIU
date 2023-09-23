@@ -44,7 +44,7 @@ fun main() {
 
     var oKRunnable = object : KRunnable{
         override fun invoke() {
-            
+
         }
 
     }
