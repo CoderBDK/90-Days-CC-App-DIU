@@ -1,5 +1,7 @@
 package com.coding.challenge.kotlinprogramminglanguage
 
+import java.util.Date
+
 class AB { // implicit label @A
     inner class B { // implicit label @B
         fun Int.foo() { // implicit label @foo
@@ -24,13 +26,25 @@ class AB { // implicit label @A
 
 fun main(){
    var d = fun String.(){
-
+       println("Hello")
    }
-    println(d)
+   println(d("dd"))
 
 
     ABC().invokePrintLine() // Member function
     ABC().invokePrintLine(omitThis = true) // Top-level function
+
+    callFRC {
+        receiveMe()
+    }
+    callFRC2 {
+        println("Hello")
+        println("World")
+        FRC()// return to receiver
+    }
+    callFRC3 {
+
+    }
 
 }
 fun goBack():Int{
@@ -46,3 +60,23 @@ class ABC {
         else this.printLine()
     }
 }
+
+class FRC{
+    fun receiveMe(){
+        println("Receive me")
+    }
+}
+
+// receiver
+fun callFRC(init: FRC.()->Unit) {
+    var frc = FRC() // create the receiver object
+    return frc.init() // pass the receiver object to the lambda
+}
+
+fun callFRC2(init: ()-> FRC){
+    init().receiveMe()
+}
+fun callFRC3(init: ()-> Unit){
+    init()
+}
+
