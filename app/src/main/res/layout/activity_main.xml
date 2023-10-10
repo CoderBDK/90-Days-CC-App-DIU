@@ -7,12 +7,36 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/appCompatEditText"
+        app:layout_constraintStart_toStartOf="@+id/appCompatEditText"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/appCompatEditText"
+        android:layout_width="312dp"
+        android:layout_height="51dp"
+        android:hint="a"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.076"
+        tools:layout_editor_absoluteX="62dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="306dp"
+        android:layout_height="58dp"
+        android:hint="b"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.31"
+        tools:layout_editor_absoluteX="62dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
