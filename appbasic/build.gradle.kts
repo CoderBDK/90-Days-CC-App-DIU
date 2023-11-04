@@ -40,6 +40,8 @@ android {
 
 dependencies {
 
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+
     val nav_version = "2.7.4"
     implementation("androidx.compose.material:material:1.5.4")
     //noinspection GradleDependency
