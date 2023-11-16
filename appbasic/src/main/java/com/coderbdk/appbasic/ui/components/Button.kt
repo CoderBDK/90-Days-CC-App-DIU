@@ -72,7 +72,7 @@ fun ButtonPreview(){
             OutlinedButton(onClick = { }) {
                 Text("Cancel")
             }
-            ElevatedButton(onClick = { }) {
+            OutlinedButton(onClick = { }) {
                 Text("Back")
             }
         }
