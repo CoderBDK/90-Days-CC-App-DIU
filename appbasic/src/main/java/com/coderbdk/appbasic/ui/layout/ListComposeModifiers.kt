@@ -1,12 +1,9 @@
 package com.coderbdk.appbasic.ui.layout
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
@@ -22,16 +19,8 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
@@ -54,7 +43,7 @@ import androidx.compose.ui.zIndex
 
 @Composable
 @Preview
-fun ListOfComposeModifiers(){
+fun ListOfComposeModifiers() {
     Box(
         Modifier.background(Color.White)
     ) {
@@ -88,7 +77,7 @@ fun ListOfComposeModifiers(){
                     translationX = 100f
                 )
                 .onKeyEvent {
-                    if(it.key == Key.A){
+                    if (it.key == Key.A) {
 
                     }
                     false
@@ -121,8 +110,6 @@ fun ListOfComposeModifiers(){
                     radius = 100.dp,
                     edgeTreatment = BlurredEdgeTreatment.Rectangle
                 )
-
-
 
 
         ) {

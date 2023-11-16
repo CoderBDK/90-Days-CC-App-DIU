@@ -1,6 +1,10 @@
 package com.coderbdk.appbasic.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -11,6 +15,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -35,7 +40,8 @@ fun CenterAlignedTopAppBarExample() {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
 
         topBar = {
             CenterAlignedTopAppBar(
@@ -112,5 +118,18 @@ fun CenterAlignedTopAppBarExample() {
 
 @Composable
 fun ScrollContent(innerPadding: PaddingValues) {
+    val scrollState = rememberScrollState()
+    LazyColumn(
+       
+    ) {
+        item {
+            repeat(100){
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "$it")
+                }
+            }
+        }
+
+    }
 
 }
