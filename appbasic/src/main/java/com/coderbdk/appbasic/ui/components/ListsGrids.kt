@@ -62,7 +62,7 @@ fun ListGridPreviews(){
                 // maxLineSpan
                 GridItemSpan(maxLineSpan)
             }) {
-                Text(text = "Item")
+                Text(text = "Item 0")
             }
         }
         LazyVerticalStaggeredGrid(
