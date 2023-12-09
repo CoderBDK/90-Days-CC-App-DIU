@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
     implementation("androidx.compose.material3:material3:1.2.0-alpha11")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
