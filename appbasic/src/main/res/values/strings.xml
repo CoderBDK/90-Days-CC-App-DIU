@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="compose">Compose Resource</string>
+    <string name="paragraph">Hello, World!</string>
     <plurals name="runtime_format">
         <item quantity="one">%1$d minute</item>
         <item quantity="other">%1$d minutes</item>
