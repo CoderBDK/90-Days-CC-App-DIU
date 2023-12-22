@@ -2,6 +2,7 @@ package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -79,6 +80,30 @@ fun AnimationModifiers(){
                     // Content of the notification…
                 }
             }
+        }
+        // Create a MutableTransitionState<Boolean> for the AnimatedVisibility.
+        val state = remember {
+            MutableTransitionState(false).apply {
+                // Start the animation immediately.
+                targetState = true
+            }
+        }
+
+        Column {
+            AnimatedVisibility(visibleState = state) {
+                Text(text = "Hello, world!")
+            }
+
+            // Use the MutableTransitionState to know the current animation state
+            // of the AnimatedVisibility.
+            Text(
+                text = when {
+                    state.isIdle && state.currentState -> "Visible"
+                    !state.isIdle && state.currentState -> "Disappearing"
+                    state.isIdle && !state.currentState -> "Invisible"
+                    else -> "Appearing"
+                }
+            )
         }
     }
 }
