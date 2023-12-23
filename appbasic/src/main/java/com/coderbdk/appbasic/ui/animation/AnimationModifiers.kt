@@ -1,7 +1,10 @@
 package com.coderbdk.appbasic.ui.animation
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -12,10 +15,13 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,7 +61,10 @@ fun AnimationModifiers(){
             ),
             exit = slideOutVertically() + shrinkVertically() + fadeOut()
         ) {
-            Text("Hello", Modifier.fillMaxWidth().height(50.dp))
+            Text("Hello",
+                Modifier
+                    .fillMaxWidth()
+                    .height(50.dp))
         }
 
 
@@ -65,7 +74,11 @@ fun AnimationModifiers(){
             exit = fadeOut()
         ) {
             // Fade in/out the background and the foreground.
-            Box(Modifier.fillMaxWidth().height(50.dp).background(Color.DarkGray)) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(Color.DarkGray)) {
                 Box(
                     Modifier
                         .align(Alignment.Center)
@@ -104,6 +117,37 @@ fun AnimationModifiers(){
                     else -> "Appearing"
                 }
             )
+        }
+        var visible by remember { mutableStateOf(false) }
+
+        AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) { // this: AnimatedVisibilityScope
+            // Use AnimatedVisibilityScope#transition to add a custom animation
+            // to the AnimatedVisibility.
+            val background by transition.animateColor(label = "color") { state ->
+                if (state == EnterExitState.Visible) Color.Blue else Color.Gray
+            }
+            Box(modifier = Modifier
+                .size(128.dp)
+                .background(background))
+        }
+        Button(onClick = {
+            visible = true
+        }) {
+
+        }
+        Row {
+            var count by remember { mutableStateOf(0) }
+            Button(onClick = { count++ }) {
+                Text("Add")
+            }
+            AnimatedContent(targetState = count, label = "") { targetCount ->
+                // Make sure to use `targetCount`, not `count`.
+                Text(text = "Count: $targetCount")
+            }
         }
     }
 }
