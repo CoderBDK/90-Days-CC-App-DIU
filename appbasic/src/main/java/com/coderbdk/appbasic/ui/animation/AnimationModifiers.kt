@@ -4,14 +4,18 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +25,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 /**
@@ -149,5 +159,50 @@ fun AnimationModifiers(){
                 Text(text = "Count: $targetCount")
             }
         }
+
+        var expanded by remember { mutableStateOf(false) }
+        Surface(
+            color = MaterialTheme.colorScheme.primary,
+            onClick = { expanded = !expanded }
+        ) {
+            AnimatedContent(
+                targetState = expanded,
+                transitionSpec = {
+                    fadeIn(animationSpec = tween(150, 150)) with
+                            fadeOut(animationSpec = tween(150)) using
+                            SizeTransform { initialSize, targetSize ->
+                                if (targetState) {
+                                    keyframes {
+                                        // Expand horizontally first.
+                                        IntSize(targetSize.width, initialSize.height) at 150
+                                        durationMillis = 300
+                                    }
+                                } else {
+                                    keyframes {
+                                        // Shrink vertically first.
+                                        IntSize(initialSize.width, targetSize.height) at 150
+                                        durationMillis = 300
+                                    }
+                                }
+                            }
+                }, label = ""
+            ) { targetExpanded ->
+                if (targetExpanded) {
+                    Expanded()
+                } else {
+                    ContentIcon()
+                }
+            }
+        }
     }
+}
+
+@Composable
+fun ContentIcon() {
+    Icon(imageVector = Icons.Filled.Add, contentDescription = "Add" )
+}
+
+@Composable
+fun Expanded() {
+    Text(text = "this is expand text")
 }
