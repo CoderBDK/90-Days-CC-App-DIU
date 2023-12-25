@@ -15,6 +15,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,13 +28,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -193,6 +198,41 @@ fun AnimationModifiers(){
                     ContentIcon()
                 }
             }
+        }
+        var count by remember {
+            mutableIntStateOf(0)
+        }
+        IconButton(onClick = { count++}) {
+            Icon(imageVector = Icons.Filled.KeyboardArrowUp, contentDescription = "add")
+        }
+        AnimatedContent(
+            targetState = count,
+            transitionSpec = {
+                // Compare the incoming number with the previous number.
+                if (targetState > initialState) {
+                    // If the target number is larger, it slides up and fades in
+                    // while the initial (smaller) number slides up and fades out.
+                    (slideInVertically { height -> height } + fadeIn()).togetherWith(
+                        slideOutVertically { height -> -height } + fadeOut())
+                } else {
+                    // If the target number is smaller, it slides down and fades in
+                    // while the initial number slides down and fades out.
+                    (slideInVertically { height -> -height } + fadeIn()).togetherWith(
+                        slideOutVertically { height -> height } + fadeOut())
+                }.using(
+                    // Disable clipping since the faded slide-in/out should
+                    // be displayed out of bounds.
+                    SizeTransform(clip = false)
+                )
+            }, label = ""
+        ) { targetCount ->
+
+            Text(text = "$targetCount")
+
+
+        }
+        IconButton(onClick = { count-- }) {
+            Icon(imageVector = Icons.Filled.KeyboardArrowDown, contentDescription = "remove")
         }
     }
 }
