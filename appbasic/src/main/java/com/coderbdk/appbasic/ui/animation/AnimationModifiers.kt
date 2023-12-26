@@ -2,6 +2,7 @@ package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.SizeTransform
@@ -30,6 +31,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -233,6 +235,17 @@ fun AnimationModifiers(){
         }
         IconButton(onClick = { count-- }) {
             Icon(imageVector = Icons.Filled.KeyboardArrowDown, contentDescription = "remove")
+        }
+
+        var currentPage by remember { mutableStateOf("A") }
+        Crossfade(targetState = currentPage, label = "") { screen ->
+            when (screen) {
+                "A" -> Text("Page A")
+                "B" -> Text("Page B")
+            }
+        }
+        IconButton(onClick = { currentPage = "B" }) { Icon(imageVector = Icons.Filled.PlayArrow, contentDescription = "remove")
+
         }
     }
 }
