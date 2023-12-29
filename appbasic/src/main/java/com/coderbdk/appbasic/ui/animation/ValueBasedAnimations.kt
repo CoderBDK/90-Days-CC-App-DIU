@@ -1,5 +1,6 @@
 package com.coderbdk.appbasic.ui.animation
 
+import androidx.compose.animation.Animatable
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloatAsState
@@ -11,11 +12,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -91,7 +95,8 @@ fun ValueBasedAnimation() {
             Modifier
                 .size(100.dp)
                 .background(color)
-                .border(width = borderWidth,
+                .border(
+                    width = borderWidth,
                     brush = Brush.linearGradient(
                         listOf(
                             Color.Red,
@@ -107,6 +112,26 @@ fun ValueBasedAnimation() {
         }) {
 
         }
+
+        // Start out gray and animate to green/red based on `ok`
+        val color2 = remember { Animatable(Color.Gray) }
+        val ok by remember {
+            mutableStateOf(false)
+        }
+        LaunchedEffect(ok) {
+            color2.animateTo(if (ok) Color.Green else Color.Red)
+        }
+        Box(
+            Modifier
+                .size(100.dp)
+                .background(color2.value)){
+            Button(onClick = {
+                currentState = BoxState.Expanded
+            }) {
+                Text(text = "Click1")
+            }
+        }
+
     }
 }
 
