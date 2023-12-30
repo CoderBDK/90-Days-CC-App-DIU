@@ -2,6 +2,8 @@ package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.TargetBasedAnimation
+import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateRect
@@ -21,9 +23,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Rect
@@ -131,8 +136,32 @@ fun ValueBasedAnimation() {
                 Text(text = "Click1")
             }
         }
+        val anim = remember {
+            TargetBasedAnimation(
+                animationSpec = tween(200),
+                typeConverter = Float.VectorConverter,
+                initialValue = 200f,
+                targetValue = 10000f
+            )
+        }
+        var playTime by remember { mutableLongStateOf(0L) }
+        var animateValue by remember {
+            mutableFloatStateOf(0f)
+        }
+        LaunchedEffect(anim) {
+            val startTime = withFrameNanos { it }
 
+            do {
+                playTime = withFrameNanos { it } - startTime
+                animateValue = anim.getValueFromNanos(playTime)
+            } while (someCustomCondition())
+        }
+        Text(text = "$animateValue")
     }
+}
+
+fun someCustomCondition(): Boolean {
+    return false
 }
 
 enum class BoxState {
