@@ -43,6 +43,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.2.0-alpha11")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation("androidx.compose.animation:animation-graphics-android:1.5.4")
 
     val nav_version = "2.7.4"
     //noinspection GradleDependency

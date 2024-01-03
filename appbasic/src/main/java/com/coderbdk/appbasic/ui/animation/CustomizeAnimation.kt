@@ -2,6 +2,7 @@ package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -42,16 +43,28 @@ fun CustomizeAnimation() {
             stiffness = Spring.StiffnessMedium
         ), label = "spring"
     )
+
+    val value2 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = 300,
+            delayMillis = 50,
+            easing = LinearOutSlowInEasing
+        ), label = ""
+    )
+
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(x = (value * 100).dp), onClick = {
-                isAnimate = true
+                .offset(y = (value * 100).dp), onClick = {
+                isAnimate = !isAnimate
             }) {
 
         }
     }
+
+
 
 }
