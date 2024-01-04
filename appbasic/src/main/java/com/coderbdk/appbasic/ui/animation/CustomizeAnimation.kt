@@ -1,10 +1,12 @@
 package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -53,12 +55,24 @@ fun CustomizeAnimation() {
         ), label = ""
     )
 
+    val value3 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = keyframes {
+            durationMillis = 375
+            0.0f at 100 using LinearOutSlowInEasing // for 0-15 ms
+            0.2f at 15 using FastOutLinearInEasing // for 15-75 ms
+            0.4f at 75 // ms
+            0.4f at 225 // ms
+            0.5f at 250 using LinearOutSlowInEasing
+        }, label = "keyframes"
+    )
+
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value * 100).dp), onClick = {
+                .offset(y = (value3 * 100).dp), onClick = {
                 isAnimate = !isAnimate
             }) {
 
