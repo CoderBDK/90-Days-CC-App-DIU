@@ -4,9 +4,11 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -66,13 +68,20 @@ fun CustomizeAnimation() {
             0.5f at 250 using LinearOutSlowInEasing
         }, label = "keyframes"
     )
-
+    val value4 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = repeatable(
+            iterations = 3,
+            animation = tween(durationMillis = 300),
+            repeatMode = RepeatMode.Reverse
+        ), label = "repeatable"
+    )
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value3 * 100).dp), onClick = {
+                .offset(y = (value4 * 100).dp), onClick = {
                 isAnimate = !isAnimate
             }) {
 
