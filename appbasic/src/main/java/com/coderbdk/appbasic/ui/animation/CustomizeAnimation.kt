@@ -7,6 +7,7 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.spring
@@ -76,12 +77,19 @@ fun CustomizeAnimation() {
             repeatMode = RepeatMode.Reverse
         ), label = "repeatable"
     )
+    val value5 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 300),
+            repeatMode = RepeatMode.Reverse
+        ), label = "infinite"
+    )
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value4 * 100).dp), onClick = {
+                .offset(y = (value5 * 100).dp), onClick = {
                 isAnimate = !isAnimate
             }) {
 
