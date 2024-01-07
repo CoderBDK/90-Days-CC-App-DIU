@@ -10,6 +10,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.repeatable
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -84,12 +85,16 @@ fun CustomizeAnimation() {
             repeatMode = RepeatMode.Reverse
         ), label = "infinite"
     )
+    val value6 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = snap(delayMillis = 50), label = "snap"
+    )
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value5 * 100).dp), onClick = {
+                .offset(y = (value6 * 100).dp), onClick = {
                 isAnimate = !isAnimate
             }) {
 
