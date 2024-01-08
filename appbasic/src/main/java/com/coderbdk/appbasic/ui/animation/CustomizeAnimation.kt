@@ -1,6 +1,7 @@
 package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -89,12 +90,21 @@ fun CustomizeAnimation() {
         targetValue = if (isAnimate) 1f else 0f,
         animationSpec = snap(delayMillis = 50), label = "snap"
     )
+    val CustomEasing = Easing { fraction -> fraction * fraction}
+
+    val value7 by animateFloatAsState(
+        targetValue = if (isAnimate) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = 300,
+            easing = CustomEasing
+        ), label = ""
+    )
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value6 * 100).dp), onClick = {
+                .offset(y = (value7 * 100).dp), onClick = {
                 isAnimate = !isAnimate
             }) {
 
