@@ -1,13 +1,16 @@
 package com.coderbdk.appbasic.ui.animation
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.AnimationVector2D
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.TwoWayConverter
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateValueAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.repeatable
@@ -17,6 +20,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
@@ -99,12 +104,29 @@ fun CustomizeAnimation() {
             easing = CustomEasing
         ), label = ""
     )
+
+    val value8: MySize by animateValueAsState(
+        if(isAnimate) MySize(200.dp, 200.dp) else MySize(50.dp, 50.dp),
+        animationSpec = tween(
+            durationMillis = 2000,
+
+        ),
+       typeConverter =  TwoWayConverter(
+            convertToVector = { size: MySize ->
+                // Extract a float value from each of the `Dp` fields.
+                AnimationVector2D(size.width.value, size.height.value)
+            },
+            convertFromVector = { vector: AnimationVector2D ->
+                MySize(vector.v1.dp, vector.v2.dp)
+            }
+        ), label = ""
+    )
     Column(
         Modifier.fillMaxSize()
     ) {
         Button(
             modifier = Modifier
-                .offset(y = (value7 * 100).dp), onClick = {
+                .size(value8.width, value8.height), onClick = {
                 isAnimate = !isAnimate
             }) {
 
@@ -114,3 +136,6 @@ fun CustomizeAnimation() {
 
 
 }
+
+data class MySize(val width: Dp, val height: Dp)
+
