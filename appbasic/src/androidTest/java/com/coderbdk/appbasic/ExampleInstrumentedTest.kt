@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,9 +15,11 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToLog
 import androidx.compose.ui.unit.dp
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.coderbdk.appbasic.ui.theme.AppTheme
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,7 +55,10 @@ class ExampleInstrumentedTest {
                 targetValue = if (enabled) Color.Red else Color.Green,
                 animationSpec = tween(durationMillis = 250), label = ""
             )
-            Box(Modifier.size(64.dp).background(color))
+            Box(
+                Modifier
+                    .size(64.dp)
+                    .background(color))
         }
 
         // Initiate the animation.
@@ -68,5 +74,20 @@ class ExampleInstrumentedTest {
 
     private fun ImageBitmap.assertAgainstGolden(){
 
+    }
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun MyTest() {
+        // Start the app
+        composeTestRule.setContent {
+            AppTheme {
+                Text("Hello world!")
+            }
+        }
+        // Log the full semantics tree
+        composeTestRule.onRoot().printToLog("MY TAG")
     }
 }
