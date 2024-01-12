@@ -12,9 +12,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToLog
 import androidx.compose.ui.unit.dp
 import androidx.test.platform.app.InstrumentationRegistry
@@ -89,5 +94,12 @@ class ExampleInstrumentedTest {
         }
         // Log the full semantics tree
         composeTestRule.onRoot().printToLog("MY TAG")
+
+        val mySwitch = SemanticsMatcher.expectValue(
+            SemanticsProperties.Role, Role.Switch
+        )
+        composeTestRule.onNode(mySwitch)
+            .performClick()
+            .assertIsOff()
     }
 }
